@@ -118,8 +118,190 @@ footer span{font-size:0.76rem;color:#333;}
   .lang-row{grid-template-columns:1fr 1fr;}
 }
 </style>
+
+<style>
+/* ===== Colour + animation layer (same layout as before) ===== */
+:root{--bg:#0E1930;--bg2:#15233F;--border:#22355A;--gold:#F2B84B;--text:#E9EEF7;--muted:#9AA8C2;--white:#fff;
+  --blue:#5B8DEF;--teal:#2EC4B6;--coral:#FF7A85;--violet:#9B8CFF;--grad:linear-gradient(90deg,#5B8DEF,#2EC4B6,#F2B84B,#FF7A85);}
+body{background:var(--bg);}
+nav{background:rgba(14,25,48,.88);border-bottom-color:rgba(91,141,239,.18);}
+.nav-logo span{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;font-weight:600;}
+.nav-links button{color:#A9B6CF;}
+.nav-links .nav-cta{color:#0E1930;background:var(--gold);padding:.45rem 1rem;border-radius:999px;}
+.nav-links .nav-cta:hover{color:#0E1930;background:#FFD27A;}
+#progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:var(--grad);}
+
+/* hero */
+#hero{position:relative;overflow:hidden;background:radial-gradient(1200px 600px at 85% 10%,rgba(91,141,239,.22),transparent 60%),radial-gradient(900px 500px at 0% 100%,rgba(46,196,182,.16),transparent 60%),var(--bg);}
+.orb{position:absolute;border-radius:50%;filter:blur(80px);pointer-events:none;opacity:.45;animation:drift 20s ease-in-out infinite alternate;z-index:0;}
+.orb.o1{width:380px;height:380px;background:#5B8DEF;top:-120px;right:12%;}
+.orb.o2{width:300px;height:300px;background:#2EC4B6;bottom:-120px;left:-80px;animation-duration:24s;opacity:.35;}
+.orb.o3{width:220px;height:220px;background:#FF7A85;top:45%;right:-60px;animation-duration:28s;opacity:.28;}
+@keyframes drift{from{transform:translate(0,0) scale(1)}to{transform:translate(-40px,30px) scale(1.15)}}
+.hero-left,.hero-right{position:relative;z-index:1;}
+.hero-tag{color:var(--teal);}
+.hero-tag::before{background:var(--teal);}
+.hero-left h1 em{background:linear-gradient(90deg,#5B8DEF,#2EC4B6,#F2B84B,#FF7A85,#5B8DEF);background-size:300% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shimmer 6s linear infinite;}
+@keyframes shimmer{to{background-position:300% 0}}
+.hero-sub{color:#B7C3D9;}
+.btn-p{background:linear-gradient(90deg,#F2B84B,#FF9F6E);color:#0E1930;border-radius:10px;font-weight:600;box-shadow:0 10px 26px -10px rgba(242,184,75,.8);transition:transform .2s,box-shadow .2s;}
+.btn-p:hover{opacity:1;transform:translateY(-2px);box-shadow:0 14px 30px -10px rgba(242,184,75,.9);}
+.btn-o{border-radius:10px;border-color:rgba(91,141,239,.5);color:#CFE0FF;transition:all .2s;}
+.btn-o:hover{border-color:var(--blue);background:rgba(91,141,239,.12);color:#fff;transform:translateY(-2px);}
+.hero-meta a{color:#7F8DA8;}
+.hero-meta a:hover{color:var(--teal);}
+.hero-right img{border-radius:16px;position:relative;z-index:1;animation:float 6s ease-in-out infinite;}
+.hero-right{--w:260px;}
+.hero-right::after{border:none;top:-8px;right:-8px;bottom:auto;left:-8px;height:calc(var(--w) * 4 / 3 + 16px);border-radius:22px;background:conic-gradient(from var(--a,0deg),#5B8DEF,#2EC4B6,#F2B84B,#FF7A85,#5B8DEF);animation:spin 8s linear infinite;z-index:0;opacity:.9;}
+@property --a{syntax:'<angle>';inherits:false;initial-value:0deg;}
+@keyframes spin{to{--a:360deg}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.avail-badge{display:inline-flex;align-items:center;gap:.5rem;margin:1.4rem auto 0;padding:.35rem .9rem;border-radius:999px;background:rgba(46,196,182,.15);color:var(--teal);position:relative;z-index:1;left:50%;transform:translateX(-50%);}
+.avail-badge::before{content:'';width:8px;height:8px;border-radius:50%;background:var(--teal);animation:ping 1.8s ease-out infinite;}
+@keyframes ping{0%{box-shadow:0 0 0 0 rgba(46,196,182,.7)}100%{box-shadow:0 0 0 10px rgba(46,196,182,0)}}
+
+/* hero entrance */
+.hero-left>*{opacity:0;transform:translateY(16px);animation:rise .7s cubic-bezier(.2,.7,.2,1) forwards;}
+.hero-left>*:nth-child(1){animation-delay:.1s}.hero-left>*:nth-child(2){animation-delay:.22s}.hero-left>*:nth-child(3){animation-delay:.34s}.hero-left>*:nth-child(4){animation-delay:.46s}.hero-left>*:nth-child(5){animation-delay:.58s}
+.hero-right{opacity:0;animation:rise .9s .4s cubic-bezier(.2,.7,.2,1) forwards;}
+@keyframes rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+
+/* sections: one colour per section */
+.section{border-bottom-color:var(--border);}
+#about{--c:#5B8DEF}#experience{--c:#2EC4B6}#projects{--c:#F2B84B}#skills{--c:#9B8CFF}#education{--c:#5B8DEF}#languages{--c:#2EC4B6}#articles{--c:#FF7A85}#certifications{--c:#F2B84B}
+.section-num{color:var(--c);}
+.section-num .label{color:#7F8DA8;}
+.section-num::after{background:var(--c);width:0;transition:width 1s cubic-bezier(.6,0,.2,1);}
+.section-num.visible::after{width:60px;}
+h2{position:relative;}
+.aside-label,.exp-dates,.edu-dates{color:var(--c);}
+.about-text p{color:#B7C3D9;}
+.about-text strong{color:#fff;background:linear-gradient(transparent 62%,rgba(91,141,239,.35) 0);}
+.aside-val{color:#B7C3D9;}
+.aside-val.highlight{color:var(--teal);}
+.aside-block{padding-left:1rem;border-left:2px solid rgba(91,141,239,.35);}
+
+/* experience */
+.exp-item{border-top-color:var(--border);transition:background .3s;padding-left:1.2rem;padding-right:1.2rem;border-radius:12px;position:relative;}
+.exp-item:hover{background:rgba(46,196,182,.06);}
+.exp-item::before{content:'';position:absolute;left:0;top:2.5rem;bottom:2.5rem;width:3px;border-radius:3px;background:linear-gradient(#2EC4B6,#5B8DEF);transform:scaleY(0);transform-origin:top;transition:transform .5s;}
+.exp-item:hover::before,.exp-item.visible::before{transform:scaleY(1);}
+.exp-co{color:var(--teal);opacity:1;}
+.exp-desc,.edu-school{color:#B7C3D9;}
+.exp-loc,.edu-note{color:#7F8DA8;}
+
+/* projects */
+.proj-grid{gap:1.2rem;background:none;}
+.proj-card{background:var(--bg2);border:1px solid var(--border);border-radius:16px;position:relative;overflow:hidden;transition:transform .3s,box-shadow .3s,border-color .3s;}
+.proj-card::before{content:'';position:absolute;inset:0 0 auto;height:4px;background:var(--pc);}
+.proj-card:hover{background:var(--bg2);transform:translateY(-6px);border-color:var(--pc);box-shadow:0 22px 40px -22px var(--pc);}
+.proj-card:nth-child(6n+1){--pc:#5B8DEF}.proj-card:nth-child(6n+2){--pc:#F2B84B}.proj-card:nth-child(6n+3){--pc:#9B8CFF}.proj-card:nth-child(6n+4){--pc:#2EC4B6}.proj-card:nth-child(6n+5){--pc:#FF7A85}.proj-card:nth-child(6n+6){--pc:#FFB86B}
+.proj-tag{color:var(--pc);}
+.proj-desc{color:#B7C3D9;}
+.proj-link{color:var(--pc);}
+
+.proj-more{margin-top:2.5rem;display:flex;align-items:center;justify-content:space-between;gap:1.5rem;flex-wrap:wrap;padding:1.6rem 2rem;border-radius:16px;background:linear-gradient(90deg,rgba(91,141,239,.14),rgba(46,196,182,.12),rgba(242,184,75,.12));border:1px solid var(--border);}
+.proj-more p{margin:0;color:#C9D3E5;font-size:.92rem;}
+.proj-more .btn-o{white-space:nowrap;}
+.art-wide{grid-column:1/-1;}
+.edu-note a{color:var(--teal);}
+/* skills */
+.skills-wrap>div:nth-child(1){--sc:#5B8DEF}.skills-wrap>div:nth-child(2){--sc:#2EC4B6}.skills-wrap>div:nth-child(3){--sc:#F2B84B}.skills-wrap>div:nth-child(4){--sc:#FF7A85}
+.skill-group-label{color:var(--sc);border-bottom:2px solid var(--sc);}
+.skill-tag{color:#DCE4F2;border-radius:999px;border-color:transparent;background:color-mix(in srgb,var(--sc) 16%,transparent);transition:transform .2s,background .2s;}
+.skill-tag:hover{border-color:var(--sc);color:#fff;transform:translateY(-2px);background:color-mix(in srgb,var(--sc) 30%,transparent);}
+
+/* education */
+.edu-item{border-top-color:var(--border);}
+
+/* languages */
+.lang-row{gap:1rem;background:none;}
+.lang-card{background:var(--bg2);border:1px solid var(--border);border-radius:16px;transition:transform .3s,border-color .3s;}
+.lang-card:hover{background:var(--bg2);transform:translateY(-5px);}
+.lang-card:nth-child(1){--lc:#5B8DEF}.lang-card:nth-child(2){--lc:#F2B84B}.lang-card:nth-child(3){--lc:#2EC4B6}.lang-card:nth-child(4){--lc:#FF7A85}.lang-card:nth-child(5){--lc:#9B8CFF}
+.lang-card:hover{border-color:var(--lc);}
+.lang-level{color:var(--lc);}
+
+/* articles */
+.article-grid{gap:1.2rem;background:none;}
+.article-card{background:var(--bg2);border:1px solid var(--border);border-radius:16px;transition:transform .3s,border-color .3s;}
+.article-card:hover{background:var(--bg2);transform:translateY(-5px);border-color:var(--coral);}
+.art-date{color:#7F8DA8;}
+.art-excerpt{color:#B7C3D9;}
+.art-read{color:var(--coral);}
+
+/* certifications */
+.cert-grid{gap:1rem;background:none;}
+.cert-item{background:var(--bg2);border:1px solid var(--border);border-radius:12px;color:#C9D3E5;transition:transform .25s,border-color .25s;}
+.cert-item:hover{background:var(--bg2);transform:translateY(-3px);border-color:var(--gold);}
+.cert-item:nth-child(4n+1) .cert-dot{background:#5B8DEF}.cert-item:nth-child(4n+2) .cert-dot{background:#2EC4B6}.cert-item:nth-child(4n+3) .cert-dot{background:#F2B84B}.cert-item:nth-child(4n+4) .cert-dot{background:#FF7A85}
+.cert-dot{width:8px;height:8px;}
+
+/* contact */
+#contact{position:relative;overflow:hidden;background:radial-gradient(700px 400px at 20% 100%,rgba(46,196,182,.18),transparent 60%),radial-gradient(700px 400px at 85% 0%,rgba(91,141,239,.22),transparent 60%),var(--bg);}
+#contact p{color:#B7C3D9;}
+.contact-links a{border-radius:999px;border-color:var(--border);color:#CFD8E8;}
+.contact-links a:nth-child(1):hover{border-color:#5B8DEF;color:#5B8DEF}.contact-links a:nth-child(2):hover{border-color:#9B8CFF;color:#9B8CFF}.contact-links a:nth-child(3):hover{border-color:#2EC4B6;color:#2EC4B6}.contact-links a:nth-child(4):hover{border-color:#F2B84B;color:#F2B84B}
+.contact-email{border-bottom:none;background:var(--grad);background-size:100% 2px;background-repeat:no-repeat;background-position:0 100%;padding-bottom:.3rem;font-size:1.1rem;}
+footer{border-top-color:var(--border);}
+footer span,.foot-links a{color:#7F8DA8;}
+
+/* reveal: slightly livelier */
+.reveal{transform:translateY(24px) scale(.98);}
+.reveal.visible{transform:none;}
+
+@media(max-width:900px){.hero-right{--w:180px;}}
+
+/* ===== simplified content blocks ===== */
+.hero-short{font-family:'Lora',Georgia,serif;font-size:1.35rem;color:#fff;line-height:1.5;max-width:520px;}
+.hero-short span{display:block;margin-top:.5rem;font-family:'Inter',sans-serif;font-size:.95rem;color:#9AA8C2;}
+.about-text p{font-size:1.15rem;line-height:1.8;}
+.exp-points{margin:.6rem 0 0;padding-left:1.1rem;color:#B7C3D9;font-size:.92rem;line-height:1.7;}
+.exp-points li{margin-bottom:.35rem;}
+.exp-points li::marker{color:var(--teal);}
+.proj-desc p{margin:0 0 .7rem;}
+.proj-desc .pl{display:block;font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--pc);margin-bottom:.2rem;}
+.skills-new{display:grid;grid-template-columns:1.4fr 1fr;gap:3rem;}
+.sg-blue{--sc:#5B8DEF}.sg-teal{--sc:#2EC4B6}
+.toolbox{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(5,1fr);gap:.8rem;}
+.toolbox li{display:flex;flex-direction:column;align-items:center;gap:.6rem;padding:1rem .4rem;border-radius:14px;background:var(--bg2);border:1px solid var(--border);font-size:.75rem;color:#DCE4F2;text-align:center;transition:transform .25s,border-color .25s;}
+.toolbox li:hover{transform:translateY(-4px);border-color:var(--blue);}
+.toolbox img{height:34px;width:auto;max-width:60px;background:#fff;border-radius:8px;padding:4px;}
+.core-skills{list-style:none;padding:0;margin:0;}
+.core-skills li{display:flex;align-items:center;gap:1rem;padding:.9rem 0;border-bottom:1px solid var(--border);color:#E9EEF7;font-size:.98rem;}
+.cs-num{font-size:.75rem;color:var(--teal);font-weight:600;letter-spacing:.08em;}
+.edu-cv{padding:1.4rem 0;border-top:1px solid var(--border);}
+.edu-cv:last-child{border-bottom:1px solid var(--border);}
+.edu-head{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;}
+.edu-head b{color:#fff;font-weight:600;font-size:1.02rem;}
+.edu-head span{color:var(--blue);font-size:.85rem;}
+.edu-sub{color:#B7C3D9;font-size:.92rem;margin-top:.25rem;}
+.edu-sub.muted{color:#7F8DA8;font-size:.85rem;}
+.edu-sub a{color:var(--teal);text-decoration:none;}
+@media(max-width:900px){.skills-new{grid-template-columns:1fr;}.toolbox{grid-template-columns:repeat(3,1fr);}}
+
+
+.skills-new{grid-template-columns:1fr 1.3fr;}
+.core-skills li{gap:.9rem;padding:.75rem 1rem;margin-bottom:.6rem;border:1px solid var(--border);border-left:3px solid var(--k);border-radius:12px;background:var(--bg2);transition:transform .25s;}
+.core-skills li:hover{transform:translateX(6px);}
+.cs-ic{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;background:color-mix(in srgb,var(--k) 18%,transparent);flex-shrink:0;}
+.cs-ic img{width:20px;height:20px;}
+.edu-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;margin-top:1rem;}
+.edu-card{position:relative;padding:1.8rem 1.5rem;border-radius:18px;background:var(--bg2);border:1px solid var(--border);overflow:hidden;transition:transform .3s,border-color .3s,box-shadow .3s;}
+.edu-card::after{content:'';position:absolute;right:-40px;top:-40px;width:140px;height:140px;border-radius:50%;background:var(--e);opacity:.12;}
+.edu-card:hover{transform:translateY(-6px);border-color:var(--e);box-shadow:0 22px 40px -24px var(--e);}
+.edu-ic{width:52px;height:52px;border-radius:14px;display:grid;place-items:center;background:color-mix(in srgb,var(--e) 18%,transparent);margin-bottom:1.2rem;}
+.edu-ic img{width:28px;height:28px;}
+.edu-date{font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;color:var(--e);margin-bottom:.4rem;}
+.edu-name{font-family:'Lora',Georgia,serif;font-size:1.15rem;color:#fff;line-height:1.35;}
+.edu-uni{margin-top:.4rem;color:#9AA8C2;font-size:.88rem;}
+@media(max-width:900px){.edu-cards{grid-template-columns:1fr;}}
+
+@media (prefers-reduced-motion: reduce){*,*::before,*::after{animation:none!important;transition:none!important;}.hero-left>*,.hero-right{opacity:1;transform:none;}}
+</style>
 </head>
 <body>
+<div id="progress"></div>
 
 <nav>
   <div class="nav-logo" onclick="scrollTo(0,0)">ramya.<span>r</span></div>
@@ -135,10 +317,11 @@ footer span{font-size:0.76rem;color:#333;}
 </nav>
 
 <section id="hero">
+  <div class="orb o1"></div><div class="orb o2"></div><div class="orb o3"></div>
   <div class="hero-left">
     <div class="hero-tag">Business Analyst in Germany</div>
     <h1>I make processes<br>run <em>faster.</em></h1>
-    <p class="hero-sub">MBA in International Business with a Computer Science background. I find where business processes slow down and fix them with data and automation. Open to Business Analyst and Junior Consultant roles in Germany, available immediately.</p>
+    <p class="hero-sub hero-short">From business need to PRD to tech mapping.<br><span>Computer Science background, business analyst mindset, based in Würzburg.</span></p>
     <div class="hero-btns">
       <button class="btn-p" onclick="scrollToSection('projects')">View My Work</button>
       <button class="btn-o" onclick="scrollToSection('contact')">Get In Touch</button>
@@ -158,18 +341,17 @@ footer span{font-size:0.76rem;color:#333;}
 </section>
 
 <section class="section" id="about">
-  <div class="section-num">01 <span class="label">About</span></div>
+  <div class="section-num reveal">01 <span class="label">About</span></div>
   <div class="about-wrap">
     <div>
       <h2>About Me</h2>
       <div class="about-text">
-        <p>I am <strong>Ramya Rajendra</strong>, a Computer Science engineer who moved into business, because I wanted to understand not just how systems work, but how companies actually use them. I hold an MBA in International Business from THWS Würzburg and a B.E. in Computer Science.</p>
-        <p>As a business analyst at a food manufacturer, I <strong>mapped processes, built KPI reports and automated monthly reporting with SQL and Python</strong>, cutting it from eight hours to two. During my internship at Pfeuffer GmbH in Germany, I built a Power BI report used weekly by the service team.</p>
-        <p>These days I work on analyzing real industry process data to find where things get stuck, and on building automation to fix it. I am open to <strong>Business Analyst and Junior Consultant roles</strong> in Germany and ready to contribute from day one.</p>
+        <p>I'm <strong>Ramya</strong>, a Computer Science engineer who moved into business because I wanted to see how companies actually use the systems I learned to build.</p>
+        <p>Today I work between the people who run a process and the data behind it, and help both sides understand each other.</p>
       </div>
     </div>
     <div>
-      <div class="aside-block"><div class="aside-label">Education</div><div class="aside-val">MBA · International Business<br>B.E. · Computer Science</div></div>
+      <div class="aside-block"><div class="aside-label">Education</div><div class="aside-val">Master · International Business (MIB)<br>B.E. · Computer Science</div></div>
       <div class="aside-block"><div class="aside-label">Location</div><div class="aside-val">Würzburg, Germany<br>Open to travel and relocation</div></div>
       <div class="aside-block"><div class="aside-label">Languages</div><div class="aside-val">English (C1) · German (B1)<br>Kannada (Native) · Telugu · Hindi</div></div>
       <div class="aside-block"><div class="aside-label">Availability</div><div class="aside-val highlight">Immediately</div></div>
@@ -178,7 +360,7 @@ footer span{font-size:0.76rem;color:#333;}
 </section>
 
 <section class="section" id="experience">
-  <div class="section-num">02 <span class="label">Work</span></div>
+  <div class="section-num reveal">02 <span class="label">Work</span></div>
   <h2>Experience</h2>
   <div>
     <div class="exp-item reveal">
@@ -186,7 +368,6 @@ footer span{font-size:0.76rem;color:#333;}
       <div>
         <div class="exp-role">Working Student, Business Analysis Support</div>
         <div class="exp-co">Pfeuffer GmbH</div>
-        <div class="exp-desc">Built a Power BI report on service and repair requests from ERP exports, showing cases by product and month, updated weekly and used by the service team lead in team meetings. Documented the spare-parts ordering process and identified manual re-entry of email requests as a main source of delay.</div>
       </div>
     </div>
     <div class="exp-item reveal">
@@ -194,7 +375,6 @@ footer span{font-size:0.76rem;color:#333;}
       <div>
         <div class="exp-role">Junior Business Analyst</div>
         <div class="exp-co">Sri Guru Raghavendra Food Products</div>
-        <div class="exp-desc">Mapped the order-to-dispatch process with sales, warehouse and accounts and proposed pre-approval for repeat orders, which management adopted, reducing processing time from 3 to 2 days. Defined KPIs with sales and production, built a standard monthly KPI report, and automated monthly reporting from Tally ERP data with SQL and Python, cutting preparation time from 8 hours to 2. An ABC and slow-moving inventory analysis helped reduce expired returns by 10%.</div>
       </div>
     </div>
     <div class="exp-item reveal">
@@ -202,83 +382,63 @@ footer span{font-size:0.76rem;color:#333;}
       <div>
         <div class="exp-role">Intern, Web Application Development</div>
         <div class="exp-co">Rapsol Technologies Private Limited</div>
-        <div class="exp-desc">Developed a medical store management system for inventory and sales tracking using Python, PHP, HTML/CSS and MySQL, building both front-end and back-end modules. Designed the MySQL database and tested application workflows.</div>
       </div>
     </div>
   </div>
 </section>
 
 <section class="section" id="projects">
-  <div class="section-num">03 <span class="label">Projects</span></div>
+  <div class="section-num reveal">03 <span class="label">Projects</span></div>
   <h2>Selected Work</h2>
   <div class="proj-grid">
     <div class="proj-card reveal">
+      <div class="proj-tag">Finance · Group Reporting</div>
+      <div class="proj-title">Group Consolidation with Real Data: Koenig &amp; Bauer</div>
+      <div class="proj-desc">Rebuilt a listed group's IFRS consolidation (40 companies, 13 currencies) from its annual report and explained over 90% of the gap to published group equity.</div>
+      <a class="proj-link" href="https://github.com/ramya-rajendra/group-consolidation-koenig-bauer" onclick="openLink(this.href); return false;">View on GitHub ↗</a>
+    </div>
+    <div class="proj-card reveal">
+      <div class="proj-tag">Product Analytics · BigQuery</div>
+      <div class="proj-title">Zalando App Reviews: What Users Want Fixed First</div>
+      <div class="proj-desc">Turned 3,000 app reviews and a 54.5% checkout drop-off into one clear priority, delivered as a PRD, prototype and Power BI dashboard.</div>
+      <a class="proj-link" href="https://github.com/ramya-rajendra/zalando-app-review-analysis" onclick="openLink(this.href); return false;">View on GitHub ↗</a>
+    </div>
+    <div class="proj-card reveal">
       <div class="proj-tag">Process Mining · Real Data</div>
       <div class="proj-title">Purchase-to-Pay Analysis on Real Company Data</div>
-      <div class="proj-desc">Analyzed 1.6 million process steps from a real purchase-to-pay log. Invoices took a median of 64 days to be paid, payment blocks added 10 days, and 73% of blocks were still released by hand.</div>
+      <div class="proj-desc">Found in 1.6 million real process steps that payment blocks add 10 days to payment, and that 73% are still released by hand.</div>
       <a class="proj-link" href="https://github.com/ramya-rajendra/p2p-real-data-analysis" onclick="openLink(this.href); return false;">View on GitHub ↗</a>
     </div>
-    <div class="proj-card reveal">
-      <div class="proj-tag">Automation · Python</div>
-      <div class="proj-title">Invoice Process Analysis and Automation</div>
-      <div class="proj-desc">Found why a manufacturer missed early-payment discounts and built a Python prototype for 3-way matching and exception routing, with estimated savings of about EUR 247k per year on synthetic data.</div>
-      <a class="proj-link" href="https://github.com/ramya-rajendra/invoice_automation" onclick="openLink(this.href); return false;">View on GitHub ↗</a>
-    </div>
-    <div class="proj-card reveal">
-      <div class="proj-tag">Research · M&amp;A</div>
-      <div class="proj-title">Master's Thesis, AI-Driven Brand Valuation in M&amp;A</div>
-      <div class="proj-desc">Researched AI-driven brand valuation methods in M&amp;A in the Indian tech sector, combining practitioner surveys with case studies of the LTIMindtree and Tech Mahindra mergers. Graded 1.0 and published on THWS OPUS.</div>
-    </div>
-    <div class="proj-card reveal">
-      <div class="proj-tag">SAP Analytics Cloud</div>
-      <div class="proj-title">Sales Decline Analysis, Belgium</div>
-      <div class="proj-desc">Built SAP Analytics Cloud dashboards for four European markets and traced Belgium's 39% sales decline to a shrinking product range (184 to 74 materials sold) and twice as many suppliers as other markets.</div>
-    </div>
-    <div class="proj-card reveal">
-      <div class="proj-tag">Digital · Retail</div>
-      <div class="proj-title">Digital Store Transformation, s.Oliver</div>
-      <div class="proj-desc">Analyzed customer behavior and the in-store digital setup and proposed an online-to-offline concept with a styling app, QR codes on hang tags and in-store tablets. Presented to s.Oliver and the university.</div>
-    </div>
-    <div class="proj-card reveal">
-      <div class="proj-tag">Market Entry · FMCG</div>
-      <div class="proj-title">Thüringer Landstolz Bratwurst, U.S. Market Entry</div>
-      <div class="proj-desc">Market entry plan for the US speciality food market, including price benchmarking of 9 competitors, a target price of about $20/kg, a 3-year sales forecast and an export route in line with USDA and FDA requirements.</div>
-    </div>
+  </div>
+  <div class="proj-more reveal">
+    <p>More projects, including invoice process analysis and automation, are on my GitHub.</p>
+    <a class="btn-o" href="https://github.com/ramya-rajendra?tab=repositories" onclick="openLink(this.href); return false;">See all projects on GitHub ↗</a>
   </div>
 </section>
 
 <section class="section" id="skills">
-  <div class="section-num">04 <span class="label">Skills</span></div>
+  <div class="section-num reveal">04 <span class="label">Skills</span></div>
   <h2>Skills &amp; Tools</h2>
-  <div class="skills-wrap">
-    <div><div class="skill-group-label">Data &amp; Analytics</div><div class="skill-tags"><span class="skill-tag">SQL</span><span class="skill-tag">Python (pandas)</span><span class="skill-tag">Power BI</span><span class="skill-tag">SAP Analytics Cloud</span><span class="skill-tag">DuckDB</span><span class="skill-tag">Excel</span><span class="skill-tag">KPI Reporting</span></div></div>
-    <div><div class="skill-group-label">Process Analysis</div><div class="skill-tags"><span class="skill-tag">Process Mapping</span><span class="skill-tag">BPMN</span><span class="skill-tag">Process Mining</span><span class="skill-tag">Root Cause Analysis</span><span class="skill-tag">Requirements Gathering</span><span class="skill-tag">Stakeholder Analysis</span></div></div>
-    <div><div class="skill-group-label">Business Processes</div><div class="skill-tags"><span class="skill-tag">Procure-to-Pay</span><span class="skill-tag">Order-to-Dispatch</span><span class="skill-tag">Inventory Management</span><span class="skill-tag">Invoice Verification</span></div></div>
-    <div><div class="skill-group-label">Tools &amp; Methods</div><div class="skill-tags"><span class="skill-tag">Git &amp; GitHub</span><span class="skill-tag">Lucidchart</span><span class="skill-tag">Jira</span><span class="skill-tag">Confluence</span><span class="skill-tag">Microsoft 365</span><span class="skill-tag">Agile</span><span class="skill-tag">AI Assistants</span></div></div>
+  <div class="skills-new">
+    <div class="reveal"><div class="skill-group-label sg-teal">Core skills</div><ul class="core-skills"><li style="--k:#5B8DEF"><span class="cs-ic"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxZW0iIGhlaWdodD0iMWVtIiB2aWV3Qm94PSIwIDAgMjQgMjQiPjxwYXRoIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzVCOERFRiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9IjIiIGQ9Ik0zIDE3YTIgMiAwIDAgMSAyLTJoMmEyIDIgMCAwIDEgMiAydjJhMiAyIDAgMCAxLTIgMkg1YTIgMiAwIDAgMS0yLTJ6bTEyIDBhMiAyIDAgMCAxIDItMmgyYTIgMiAwIDAgMSAyIDJ2MmEyIDIgMCAwIDEtMiAyaC0yYTIgMiAwIDAgMS0yLTJ6TTkgNWEyIDIgMCAwIDEgMi0yaDJhMiAyIDAgMCAxIDIgMnYyYTIgMiAwIDAgMS0yIDJoLTJhMiAyIDAgMCAxLTItMnpNNiAxNXYtMWEyIDIgMCAwIDEgMi0yaDhhMiAyIDAgMCAxIDIgMnYxbS02LTZ2MyIvPjwvc3ZnPg==" alt=""></span>Process analysis &amp; BPMN</li><li style="--k:#2EC4B6"><span class="cs-ic"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxZW0iIGhlaWdodD0iMWVtIiB2aWV3Qm94PSIwIDAgMjQgMjQiPjxnIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzJFQzRCNiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9IjIiPjxwYXRoIGQ9Ik0xNCAzdjRhMSAxIDAgMCAwIDEgMWg0Ii8+PHBhdGggZD0iTTE3IDIxSDdhMiAyIDAgMCAxLTItMlY1YTIgMiAwIDAgMSAyLTJoN2w1IDV2MTFhMiAyIDAgMCAxLTIgMk05IDloMW0tMSA0aDZtLTYgNGg2Ii8+PC9nPjwvc3ZnPg==" alt=""></span>Requirements &amp; PRDs</li><li style="--k:#F2B84B"><span class="cs-ic"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxZW0iIGhlaWdodD0iMWVtIiB2aWV3Qm94PSIwIDAgMjQgMjQiPjxwYXRoIGZpbGw9Im5vbmUiIHN0cm9rZT0iI0YyQjg0QiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9IjIiIGQ9Ik0zIDEzYTEgMSAwIDAgMSAxLTFoNGExIDEgMCAwIDEgMSAxdjZhMSAxIDAgMCAxLTEgMUg0YTEgMSAwIDAgMS0xLTF6bTEyLTRhMSAxIDAgMCAxIDEtMWg0YTEgMSAwIDAgMSAxIDF2MTBhMSAxIDAgMCAxLTEgMWgtNGExIDEgMCAwIDEtMS0xek05IDVhMSAxIDAgMCAxIDEtMWg0YTEgMSAwIDAgMSAxIDF2MTRhMSAxIDAgMCAxLTEgMWgtNGExIDEgMCAwIDEtMS0xek00IDIwaDE0Ii8+PC9zdmc+" alt=""></span>KPI reporting &amp; dashboards</li><li style="--k:#FF7A85"><span class="cs-ic"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxZW0iIGhlaWdodD0iMWVtIiB2aWV3Qm94PSIwIDAgMjQgMjQiPjxwYXRoIGZpbGw9Im5vbmUiIHN0cm9rZT0iI0ZGN0E4NSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9IjIiIGQ9Ik0zIDEwYTcgNyAwIDEgMCAxNCAwYTcgNyAwIDEgMC0xNCAwbTE4IDExbC02LTYiLz48L3N2Zz4=" alt=""></span>Root cause analysis</li><li style="--k:#9B8CFF"><span class="cs-ic"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxZW0iIGhlaWdodD0iMWVtIiB2aWV3Qm94PSIwIDAgMjQgMjQiPjxwYXRoIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzlCOENGRiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9IjIiIGQ9Ik0zIDIxaDE4TTMgMTBoMThNNSA2bDctM2w3IDNNNCAxMHYxMW0xNi0xMXYxMU04IDE0djNtNC0zdjNtNC0zdjMiLz48L3N2Zz4=" alt=""></span>IFRS group consolidation</li></ul></div>
+    <div class="reveal"><div class="skill-group-label sg-blue">Toolbox</div><ul class="toolbox"><li><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjggMTI4Ij48bGluZWFyR3JhZGllbnQgaWQ9InB5dGhvbi1vcmlnaW5hbC1hIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjcwLjI1MiIgeTE9IjEyMzcuNDc2IiB4Mj0iMTcwLjY1OSIgeTI9IjExNTEuMDg5IiBncmFkaWVudFRyYW5zZm9ybT0ibWF0cml4KC41NjMgMCAwIC0uNTY4IC0yOS4yMTUgNzA3LjgxNykiPjxzdG9wIG9mZnNldD0iMCIgc3RvcC1jb2xvcj0iIzVBOUZENCIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iIzMwNjk5OCIvPjwvbGluZWFyR3JhZGllbnQ+PGxpbmVhckdyYWRpZW50IGlkPSJweXRob24tb3JpZ2luYWwtYiIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiIHgxPSIyMDkuNDc0IiB5MT0iMTA5OC44MTEiIHgyPSIxNzMuNjIiIHkyPSIxMTQ5LjUzNyIgZ3JhZGllbnRUcmFuc2Zvcm09Im1hdHJpeCguNTYzIDAgMCAtLjU2OCAtMjkuMjE1IDcwNy44MTcpIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiNGRkQ0M0IiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiNGRkU4NzMiLz48L2xpbmVhckdyYWRpZW50PjxwYXRoIGZpbGw9InVybCgjcHl0aG9uLW9yaWdpbmFsLWEpIiBkPSJNNjMuMzkxIDEuOTg4Yy00LjIyMi4wMi04LjI1Mi4zNzktMTEuOCAxLjAwNy0xMC40NSAxLjg0Ni0xMi4zNDYgNS43MS0xMi4zNDYgMTIuODM3djkuNDExaDI0LjY5M3YzLjEzN0gyOS45NzdjLTcuMTc2IDAtMTMuNDYgNC4zMTMtMTUuNDI2IDEyLjUyMS0yLjI2OCA5LjQwNS0yLjM2OCAxNS4yNzUgMCAyNS4wOTYgMS43NTUgNy4zMTEgNS45NDcgMTIuNTE5IDEzLjEyNCAxMi41MTloOC40OTFWNjcuMjM0YzAtOC4xNTEgNy4wNTEtMTUuMzQgMTUuNDI2LTE1LjM0aDI0LjY2NWM2Ljg2NiAwIDEyLjM0Ni01LjY1NCAxMi4zNDYtMTIuNTQ4VjE1LjgzM2MwLTYuNjkzLTUuNjQ2LTExLjcyLTEyLjM0Ni0xMi44MzctNC4yNDQtLjcwNi04LjY0NS0xLjAyNy0xMi44NjYtMS4wMDh6TTUwLjAzNyA5LjU1N2MyLjU1IDAgNC42MzQgMi4xMTcgNC42MzQgNC43MjEgMCAyLjU5My0yLjA4MyA0LjY5LTQuNjM0IDQuNjktMi41NiAwLTQuNjMzLTIuMDk3LTQuNjMzLTQuNjktLjAwMS0yLjYwNCAyLjA3My00LjcyMSA0LjYzMy00LjcyMXoiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDAgMTAuMjYpIi8+PHBhdGggZmlsbD0idXJsKCNweXRob24tb3JpZ2luYWwtYikiIGQ9Ik05MS42ODIgMjguMzh2MTAuOTY2YzAgOC41LTcuMjA4IDE1LjY1NS0xNS40MjYgMTUuNjU1SDUxLjU5MWMtNi43NTYgMC0xMi4zNDYgNS43ODMtMTIuMzQ2IDEyLjU0OXYyMy41MTVjMCA2LjY5MSA1LjgxOCAxMC42MjggMTIuMzQ2IDEyLjU0NyA3LjgxNiAyLjI5NyAxNS4zMTIgMi43MTMgMjQuNjY1IDAgNi4yMTYtMS44MDEgMTIuMzQ2LTUuNDIzIDEyLjM0Ni0xMi41NDd2LTkuNDEySDYzLjkzOHYtMy4xMzhoMzcuMDEyYzcuMTc2IDAgOS44NTItNS4wMDUgMTIuMzQ4LTEyLjUxOSAyLjU3OC03LjczNSAyLjQ2Ny0xNS4xNzQgMC0yNS4wOTYtMS43NzQtNy4xNDUtNS4xNjEtMTIuNTIxLTEyLjM0OC0xMi41MjFoLTkuMjY4ek03Ny44MDkgODcuOTI3YzIuNTYxIDAgNC42MzQgMi4wOTcgNC42MzQgNC42OTIgMCAyLjYwMi0yLjA3NCA0LjcxOS00LjYzNCA0LjcxOS0yLjU1IDAtNC42MzMtMi4xMTctNC42MzMtNC43MTkgMC0yLjU5NSAyLjA4My00LjY5MiA0LjYzMy00LjY5MnoiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDAgMTAuMjYpIi8+PHJhZGlhbEdyYWRpZW50IGlkPSJweXRob24tb3JpZ2luYWwtYyIgY3g9IjE4MjUuNjc4IiBjeT0iNDQ0LjQ1IiByPSIyNi43NDMiIGdyYWRpZW50VHJhbnNmb3JtPSJtYXRyaXgoMCAtLjI0IC0xLjA1NSAwIDUzMi45NzkgNTU3LjU3NikiIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiNCOEI4QjgiIHN0b3Atb3BhY2l0eT0iLjQ5OCIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iIzdGN0Y3RiIgc3RvcC1vcGFjaXR5PSIwIi8+PC9yYWRpYWxHcmFkaWVudD48cGF0aCBvcGFjaXR5PSIuNDQ0IiBmaWxsPSJ1cmwoI3B5dGhvbi1vcmlnaW5hbC1jKSIgZD0iTTk3LjMwOSAxMTkuNTk3YzAgMy41NDMtMTQuODE2IDYuNDE2LTMzLjA5MSA2LjQxNi0xOC4yNzYgMC0zMy4wOTItMi44NzMtMzMuMDkyLTYuNDE2IDAtMy41NDQgMTQuODE1LTYuNDE3IDMzLjA5Mi02LjQxNyAxOC4yNzUgMCAzMy4wOTEgMi44NzIgMzMuMDkxIDYuNDE3eiIvPjwvc3ZnPgo=" alt="" loading="lazy"><span>Python</span></li><li><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjggMTI4Ij48cGF0aCBmaWxsPSIjMDA2MThBIiBkPSJNMTE3LjY4OCA5OC4yNDJjLTYuOTczLS4xOTEtMTIuMjk3LjQ2MS0xNi44NTIgMi4zNzktMS4yOTMuNTQ3LTMuMzU1LjU1OS0zLjU2NiAyLjE4LjcxMS43NDYuODIgMS44NTkgMS4zODcgMi43NzcgMS4wODYgMS43NTQgMi45MjIgNC4xMTMgNC41NTkgNS4zNTIgMS43ODkgMS4zNDggMy42MzMgMi43OTMgNS41NTEgMy45NjEgMy40MTQgMi4wODIgNy4yMjMgMy4yNyAxMC41MDQgNS4zNTIgMS45MzggMS4yMyAzLjg1OSAyLjc3NyA1Ljc1IDQuMTY0LjkzNC42ODQgMS41NjMgMS43NSAyLjc3MyAyLjE4di0uMTk1Yy0uNjM3LS44MTItLjgwMS0xLjkzLTEuMzg3LTIuNzc3bC0yLjU3OC0yLjU3OGMtMi41Mi0zLjM0NC01LjcxOS02LjI4MS05LjExNy04LjcxOS0yLjcxMS0xLjk0OS04Ljc4MS00LjU3OC05LjkxLTcuNzNsLS4xOTktLjE5OWMxLjkyMi0uMjE5IDQuMTcyLS45MTQgNS45NDktMS4zOTEgMi45OC0uNzk3IDUuNjQ1LS41OSA4LjcxOS0xLjM4N2w0LjE2NC0xLjE4N3YtLjc5M2MtMS41NTUtMS41OTQtMi42NjQtMy43MDctNC4zNTktNS4xNTItNC40NDEtMy43ODEtOS4yODUtNy41NTUtMTQuMjczLTEwLjcwMy0yLjc2Ni0xLjc0Ni02LjE4NC0yLjg4My05LjExNy00LjM2My0uOTg4LS40OTYtMi43MTktLjc1OC0zLjM3MS0xLjU4Ni0xLjUzOS0xLjk2MS0yLjM3OS00LjQ0OS0zLjU2Ni02LjczOC0yLjQ4OC00Ljc5My00LjkzLTEwLjAyMy03LjEzNy0xNS4wNjYtMS41MDQtMy40MzctMi40ODQtNi44MjgtNC4zNTktOS45MS05LTE0Ljc5Ny0xOC42ODctMjMuNzMtMzMuNjk1LTMyLjUwOC0zLjE5NS0xLjg2Ny03LjAzOS0yLjYwNS0xMS4xMDItMy41N2wtNi41NDMtLjM5NWMtMS4zMzItLjU1NS0yLjcxNS0yLjE4NC0zLjk2NS0yLjk3N0MxNi45NzcgMy41MiA0LjIyMy0zLjMxMi41MzkgNS42NzItMS43ODUgMTEuMzQgNC4wMTYgMTYuODcxIDYuMDkgMTkuNzQ2YzEuNDU3IDIuMDEyIDMuMzIgNC4yNzMgNC4zNTkgNi41MzkuNjg4IDEuNDkyLjgwNSAyLjk4NCAxLjM5MSA0LjU1OSAxLjQzOCAzLjg4MyAyLjY5NSA4LjEwOSA0LjU1OSAxMS42OTUuOTQxIDEuODE2IDEuOTggMy43MjcgMy4xNzIgNS4zNTIuNzI3Ljk5NiAxLjk4IDEuNDM4IDIuMTggMi45NzMtMS4yMjcgMS43MTUtMS4yOTcgNC4zNzUtMS45ODQgNi41NDMtMy4wOTggOS43Ny0xLjkyNiAyMS45MSAyLjU3OCAyOS4xMzcgMS4zODMgMi4yMjMgNC42NDEgNi45OCA5LjExNyA1LjE1NiAzLjkxOC0xLjU5OCAzLjA0My02LjUzOSA0LjE2NC0xMC45MDIuMjU0LS45ODguMDk4LTEuNzE1LjU5NC0yLjM3OXYuMTk5bDMuNTcgNy4xMzNjMi42NDEgNC4yNTQgNy4zMjQgOC42OTkgMTEuMjk3IDExLjY5OSAyLjA1OSAxLjU1NSAzLjY4IDQuMjQyIDYuMzQ0IDUuMTUydi0uMTk5aC0uMTk5Yy0uNTE2LS44MDUtMS4zMjQtMS4xMzctMS45OC0xLjc4MS0xLjU1MS0xLjUyMy0zLjI3Ny0zLjQxNC00LjU1OS01LjE1Ni0zLjYxMy00LjkwMi02LjgwNS0xMC4yNy05LjcxMS0xNS44NTUtMS4zOTEtMi42NjgtMi41OTgtNS42MDktMy43Ny04LjMyNC0uNDUzLTEuMDQ3LS40NDUtMi42MzMtMS4zODctMy4xNzItMS4yODEgMS45ODgtMy4xNzIgMy41OTgtNC4xNjQgNS45NDUtMS41ODIgMy43NTQtMS43ODkgOC4zMzYtMi4zNzUgMTMuMDgyLS4zNDguMTI1LS4xOTUuMDM5LS4zOTguMTk5LTIuNzYyLS42NjgtMy43My0zLjUwOC00Ljc1OC01Ljk0OS0yLjU5NC02LjE2NC0zLjA3OC0xNi4wOS0uNzkzLTIzLjE5MS41OS0xLjgzNiAzLjI2Mi03LjYxNyAyLjE4LTkuMzE2LS41MTYtMS42OTEtMi4yMTktMi42NzItMy4xNzItMy45NjUtMS4xOC0xLjU5OC0yLjM1NS0zLjcwMy0zLjE3Mi01LjU1MS0yLjEyNS00LjgwNS0zLjExMy0xMC4yMDMtNS4zNTItMTUuMDYyLTEuMDctMi4zMjQtMi44NzUtNC42NzYtNC4zNTktNi43MzgtMS42NDUtMi4yODktMy40ODQtMy45NzctNC43NTgtNi43NDItLjQ1My0uOTg0LTEuMDY2LTIuNTU5LS4zOTgtMy41NjYuMjE1LS42ODQuNTE2LS45NjkgMS4xOTEtMS4xOTEgMS4xNDgtLjg4NyA0LjM1Mi4yOTcgNS41NDcuNzkzIDMuMTggMS4zMiA1LjgzMiAyLjU3OCA4LjUyNyA0LjM2MyAxLjI4OS44NTUgMi41OTggMi41MTIgNC4xNiAyLjk3M2gxLjc4NWMyLjc4OS42NDEgNS45MTQuMTk1IDguNTIzLjk4OCA0LjYwOSAxLjQwMiA4LjczOCAzLjU4MiAxMi40ODggNS45NDkgMTEuNDIyIDcuMjE1IDIwLjc2NiAxNy40OCAyNy4xNTYgMjkuNzM0IDEuMDI3IDEuOTczIDEuNDczIDMuODUyIDIuMzc5IDUuOTQ1IDEuODI0IDQuMjE5IDQuMTI1IDguNTU5IDUuOTQxIDEyLjY4OCAxLjgxNiA0LjExMyAzLjU4MiA4LjI3IDYuMTQ4IDExLjY5NSAxLjM0OCAxLjgwMSA2LjU1MSAyLjc2NiA4LjkxOCAzLjc2NiAxLjY2LjY5OSA0LjM3OSAxLjQzIDUuOTQ5IDIuMzc5IDMgMS44MDkgNS45MDYgMy45NjUgOC43MjMgNS45NDUgMS40MDIuOTkyIDUuNzMgMy4xNjggNS45NDUgNC45NTd6bS04OC42MDUtNzUuNTJjLTEuNDUzLS4wMjctMi40OC4xNTYtMy41NjYuMzk1di4xOTloLjE5NWMuNjk1IDEuNDIyIDEuOTE4IDIuMzQgMi43NzcgMy41NjZsMS45OCA0LjE2NC4xOTktLjE5NWMxLjIyNy0uODY3IDEuNzg5LTIuMjUgMS43ODEtNC4zNjMtLjQ5Mi0uNTItLjU2Mi0xLjE2NC0uOTkyLTEuNzg1LS41NjItLjgyNC0xLjY2LTEuMjg5LTIuMzc1LTEuOTh6bTAgMCIvPjwvc3ZnPgo=" alt="" loading="lazy"><span>SQL</span></li><li><img src="data:image/svg+xml;base64,PHN2ZyBmaWxsPSIjNjY5REY2IiByb2xlPSJpbWciIHZpZXdCb3g9IjAgMCAyNCAyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48dGl0bGU+R29vZ2xlIEJpZ1F1ZXJ5PC90aXRsZT48cGF0aCBkPSJNNS42NzYgMTAuNTk1aDIuMDUydjUuMjQ0YTUuODkyIDUuODkyIDAgMCAxLTIuMDUyLTIuMDg4di0zLjE1NnptMTguMTc5IDEwLjgzNmEuNTA0LjUwNCAwIDAgMSAwIC43MDhsLTEuNzE2IDEuNzE2YS41MDQuNTA0IDAgMCAxLS43MDggMGwtNC4yNDgtNC4yNDhhLjIwNi4yMDYgMCAwIDEtLjAwNy0uMDA3Yy0uMDItLjAyLS4wMjgtLjA0NS0uMDQzLS4wNjZhMTAuNzM2IDEwLjczNiAwIDAgMS02LjMzNCAyLjA2NUM0LjgzNSAyMS41OTkgMCAxNi43NjQgMCAxMC43OTlTNC44MzUgMCAxMC44IDBzMTAuNzk5IDQuODM1IDEwLjc5OSAxMC44YzAgMi4zNjktLjc3MiA0LjU1My0yLjA2NiA2LjMzMy4wMjUuMDE3LjA1Mi4wMjguMDc0LjA1bDQuMjQ4IDQuMjQ4em0tNS4wMjgtMTAuNjMyYTguMDE1IDguMDE1IDAgMSAwLTguMDI4IDguMDI4aC4wMjRhOC4wMTYgOC4wMTYgMCAwIDAgOC4wMDQtOC4wMjh6bS00Ljg2IDQuOThhNi4wMDIgNi4wMDIgMCAwIDAgMi4wNC0yLjE4NHYtMS43NjRoLTIuMDR2My45NDh6bS00LjUuOTQ4Yy40NDIuMDU3Ljg4Ny4wOCAxLjMzMi4wNzIuNC4wMjUuOC4wMjUgMS4yIDBWNy42OTJIOS40Njh2OS4wMzV6Ii8+PC9zdmc+" alt="" loading="lazy"><span>BigQuery</span></li><li><img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iNjMwcHgiIGhlaWdodD0iNjMwcHgiIHZpZXdCb3g9IjAgMCA2MzAgNjMwIiB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiPgogICAgPCEtLSBHZW5lcmF0b3I6IFNrZXRjaCA1My4yICg3MjY0MykgLSBodHRwczovL3NrZXRjaGFwcC5jb20gLS0+CiAgICA8dGl0bGU+UEJJIExvZ288L3RpdGxlPgogICAgPGRlc2M+Q3JlYXRlZCB3aXRoIFNrZXRjaC48L2Rlc2M+CiAgICA8ZGVmcz4KICAgICAgICA8bGluZWFyR3JhZGllbnQgeDE9IjUwJSIgeTE9IjAlIiB4Mj0iNTAlIiB5Mj0iMTAwJSIgaWQ9ImxpbmVhckdyYWRpZW50LTEiPgogICAgICAgICAgICA8c3RvcCBzdG9wLWNvbG9yPSIjRUJCQjE0IiBvZmZzZXQ9IjAlIj48L3N0b3A+CiAgICAgICAgICAgIDxzdG9wIHN0b3AtY29sb3I9IiNCMjU0MDAiIG9mZnNldD0iMTAwJSI+PC9zdG9wPgogICAgICAgIDwvbGluZWFyR3JhZGllbnQ+CiAgICAgICAgPGxpbmVhckdyYWRpZW50IHgxPSI1MCUiIHkxPSIwJSIgeDI9IjUwJSIgeTI9IjEwMCUiIGlkPSJsaW5lYXJHcmFkaWVudC0yIj4KICAgICAgICAgICAgPHN0b3Agc3RvcC1jb2xvcj0iI0Y5RTU4MyIgb2Zmc2V0PSIwJSI+PC9zdG9wPgogICAgICAgICAgICA8c3RvcCBzdG9wLWNvbG9yPSIjREU5ODAwIiBvZmZzZXQ9IjEwMCUiPjwvc3RvcD4KICAgICAgICA8L2xpbmVhckdyYWRpZW50PgogICAgICAgIDxwYXRoIGQ9Ik0zNDYsNjA0IEwzNDYsNjMwIEwzMjAsNjMwIEwxNTMsNjMwIEMxMzguNjQwNTk3LDYzMCAxMjcsNjE4LjM1OTQwMyAxMjcsNjA0IEwxMjcsMTgzIEMxMjcsMTY4LjY0MDU5NyAxMzguNjQwNTk3LDE1NyAxNTMsMTU3IEwzMjAsMTU3IEMzMzQuMzU5NDAzLDE1NyAzNDYsMTY4LjY0MDU5NyAzNDYsMTgzIEwzNDYsNjA0IFoiIGlkPSJwYXRoLTMiPjwvcGF0aD4KICAgICAgICA8ZmlsdGVyIHg9Ii05LjElIiB5PSItNi4zJSIgd2lkdGg9IjEzNi41JSIgaGVpZ2h0PSIxMTYuOSUiIGZpbHRlclVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCIgaWQ9ImZpbHRlci00Ij4KICAgICAgICAgICAgPGZlT2Zmc2V0IGR4PSIyMCIgZHk9IjEwIiBpbj0iU291cmNlQWxwaGEiIHJlc3VsdD0ic2hhZG93T2Zmc2V0T3V0ZXIxIj48L2ZlT2Zmc2V0PgogICAgICAgICAgICA8ZmVHYXVzc2lhbkJsdXIgc3RkRGV2aWF0aW9uPSIxMCIgaW49InNoYWRvd09mZnNldE91dGVyMSIgcmVzdWx0PSJzaGFkb3dCbHVyT3V0ZXIxIj48L2ZlR2F1c3NpYW5CbHVyPgogICAgICAgICAgICA8ZmVDb2xvck1hdHJpeCB2YWx1ZXM9IjAgMCAwIDAgMCAgIDAgMCAwIDAgMCAgIDAgMCAwIDAgMCAgMCAwIDAgMC4wNTMwMjExOTc2IDAiIHR5cGU9Im1hdHJpeCIgaW49InNoYWRvd0JsdXJPdXRlcjEiPjwvZmVDb2xvck1hdHJpeD4KICAgICAgICA8L2ZpbHRlcj4KICAgICAgICA8bGluZWFyR3JhZGllbnQgeDE9IjUwJSIgeTE9IjAlIiB4Mj0iNTAlIiB5Mj0iMTAwJSIgaWQ9ImxpbmVhckdyYWRpZW50LTUiPgogICAgICAgICAgICA8c3RvcCBzdG9wLWNvbG9yPSIjRjlFNjhCIiBvZmZzZXQ9IjAlIj48L3N0b3A+CiAgICAgICAgICAgIDxzdG9wIHN0b3AtY29sb3I9IiNGM0NEMzIiIG9mZnNldD0iMTAwJSI+PC9zdG9wPgogICAgICAgIDwvbGluZWFyR3JhZGllbnQ+CiAgICA8L2RlZnM+CiAgICA8ZyBpZD0iUEJJLUxvZ28iIHN0cm9rZT0ibm9uZSIgc3Ryb2tlLXdpZHRoPSIxIiBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPgogICAgICAgIDxnIGlkPSJHcm91cCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoNzcuNTAwMDAwLCAwLjAwMDAwMCkiPgogICAgICAgICAgICA8cmVjdCBpZD0iUmVjdGFuZ2xlIiBmaWxsPSJ1cmwoI2xpbmVhckdyYWRpZW50LTEpIiB4PSIyNTYiIHk9IjAiIHdpZHRoPSIyMTkiIGhlaWdodD0iNjMwIiByeD0iMjYiPjwvcmVjdD4KICAgICAgICAgICAgPGcgaWQ9IkNvbWJpbmVkLVNoYXBlIj4KICAgICAgICAgICAgICAgIDx1c2UgZmlsbD0iYmxhY2siIGZpbGwtb3BhY2l0eT0iMSIgZmlsdGVyPSJ1cmwoI2ZpbHRlci00KSIgeGxpbms6aHJlZj0iI3BhdGgtMyI+PC91c2U+CiAgICAgICAgICAgICAgICA8dXNlIGZpbGw9InVybCgjbGluZWFyR3JhZGllbnQtMikiIGZpbGwtcnVsZT0iZXZlbm9kZCIgeGxpbms6aHJlZj0iI3BhdGgtMyI+PC91c2U+CiAgICAgICAgICAgIDwvZz4KICAgICAgICAgICAgPHBhdGggZD0iTTIxOSw2MDQgTDIxOSw2MzAgTDE5Myw2MzAgTDI2LDYzMCBDMTEuNjQwNTk2NSw2MzAgMS43NTg1MTk3NWUtMTUsNjE4LjM1OTQwMyAwLDYwNCBMMCwzNDEgQy0xLjc1ODUxOTc1ZS0xNSwzMjYuNjQwNTk3IDExLjY0MDU5NjUsMzE1IDI2LDMxNSBMMTkzLDMxNSBDMjA3LjM1OTQwMywzMTUgMjE5LDMyNi42NDA1OTcgMjE5LDM0MSBMMjE5LDYwNCBaIiBpZD0iQ29tYmluZWQtU2hhcGUiIGZpbGw9InVybCgjbGluZWFyR3JhZGllbnQtNSkiPjwvcGF0aD4KICAgICAgICA8L2c+CiAgICA8L2c+Cjwvc3ZnPg==" alt="" loading="lazy"><span>Power BI</span></li><li><img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDIzLjAuMSwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPgo8IURPQ1RZUEUgc3ZnIFBVQkxJQyAiLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4iICJodHRwOi8vd3d3LnczLm9yZy9HcmFwaGljcy9TVkcvMS4xL0RURC9zdmcxMS5kdGQiIFsKCTwhRU5USVRZIG5zX2V4dGVuZCAiaHR0cDovL25zLmFkb2JlLmNvbS9FeHRlbnNpYmlsaXR5LzEuMC8iPgoJPCFFTlRJVFkgbnNfYWkgImh0dHA6Ly9ucy5hZG9iZS5jb20vQWRvYmVJbGx1c3RyYXRvci8xMC4wLyI+Cgk8IUVOVElUWSBuc19ncmFwaHMgImh0dHA6Ly9ucy5hZG9iZS5jb20vR3JhcGhzLzEuMC8iPgoJPCFFTlRJVFkgbnNfdmFycyAiaHR0cDovL25zLmFkb2JlLmNvbS9WYXJpYWJsZXMvMS4wLyI+Cgk8IUVOVElUWSBuc19pbXJlcCAiaHR0cDovL25zLmFkb2JlLmNvbS9JbWFnZVJlcGxhY2VtZW50LzEuMC8iPgoJPCFFTlRJVFkgbnNfc2Z3ICJodHRwOi8vbnMuYWRvYmUuY29tL1NhdmVGb3JXZWIvMS4wLyI+Cgk8IUVOVElUWSBuc19jdXN0b20gImh0dHA6Ly9ucy5hZG9iZS5jb20vR2VuZXJpY0N1c3RvbU5hbWVzcGFjZS8xLjAvIj4KCTwhRU5USVRZIG5zX2Fkb2JlX3hwYXRoICJodHRwOi8vbnMuYWRvYmUuY29tL1hQYXRoLzEuMC8iPgpdPgo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IkxheWVyXzEiIHhtbG5zOng9IiZuc19leHRlbmQ7IiB4bWxuczppPSImbnNfYWk7IiB4bWxuczpncmFwaD0iJm5zX2dyYXBoczsiCgkgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeD0iMHB4IiB5PSIwcHgiIHZpZXdCb3g9IjAgMCAyMDgwIDIwODAiCgkgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgMjA4MCAyMDgwOyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+CjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+Cgkuc3Qwe2ZpbGw6I0ZGRkZGRjt9Cgkuc3Qxe2ZpbGw6IzIxNzM0Njt9Cgkuc3Qye2ZpbGwtcnVsZTpldmVub2RkO2NsaXAtcnVsZTpldmVub2RkO2ZpbGw6IzIxNzM0Njt9Cjwvc3R5bGU+CjxtZXRhZGF0YT4KCTxzZncgIHhtbG5zPSImbnNfc2Z3OyI+CgkJPHNsaWNlcz48L3NsaWNlcz4KCQk8c2xpY2VTb3VyY2VCb3VuZHMgIGJvdHRvbUxlZnRPcmlnaW49InRydWUiIGhlaWdodD0iMjA4MCIgd2lkdGg9IjIwODAiIHg9Ii0xMDE2IiB5PSItMTAxNiI+PC9zbGljZVNvdXJjZUJvdW5kcz4KCTwvc2Z3Pgo8L21ldGFkYXRhPgo8ZyBpZD0iXzQ4Ij4KCTxyZWN0IHg9IjEwNDAiIHk9IjI5Ny4xIiBjbGFzcz0ic3QwIiB3aWR0aD0iOTQxIiBoZWlnaHQ9IjE0MzYuMiIvPgoJPHBhdGggY2xhc3M9InN0MSIgZD0iTTE5ODEsMjk3LjF2MTQzNi4yaC05NDFWMjk3LjFIMTk4MSBNMTk4MSwxOTguMWgtOTQxYy01NC43LDAtOTksNDQuMy05OSw5OXYxNDM2LjJjMCw1NC43LDQ0LjMsOTksOTksOTloOTQxCgkJYzU0LjcsMCw5OS00NC4zLDk5LTk5VjI5Ny4xQzIwODAsMjQyLjQsMjAzNS43LDE5OC4xLDE5ODEsMTk4LjF6Ii8+Cgk8cmVjdCB4PSIxNDg1LjciIHk9IjQ0NS43IiBjbGFzcz0ic3QxIiB3aWR0aD0iMzQ2LjciIGhlaWdodD0iMTQ4LjYiLz4KCTxyZWN0IHg9IjE0ODUuNyIgeT0iNjkzLjMiIGNsYXNzPSJzdDEiIHdpZHRoPSIzNDYuNyIgaGVpZ2h0PSIxNDguNiIvPgoJPHJlY3QgeD0iMTQ4NS43IiB5PSI5NDEiIGNsYXNzPSJzdDEiIHdpZHRoPSIzNDYuNyIgaGVpZ2h0PSIxNDguNiIvPgoJPHJlY3QgeD0iMTQ4NS43IiB5PSIxMTg4LjYiIGNsYXNzPSJzdDEiIHdpZHRoPSIzNDYuNyIgaGVpZ2h0PSIxNDguNiIvPgoJPHJlY3QgeD0iMTQ4NS43IiB5PSIxNDM2LjIiIGNsYXNzPSJzdDEiIHdpZHRoPSIzNDYuNyIgaGVpZ2h0PSIxNDguNiIvPgoJPHJlY3QgeD0iMTA0MCIgeT0iNDQ1LjciIGNsYXNzPSJzdDEiIHdpZHRoPSIzNDYuNyIgaGVpZ2h0PSIxNDguNiIvPgoJPHJlY3QgeD0iMTA0MCIgeT0iNjkzLjMiIGNsYXNzPSJzdDEiIHdpZHRoPSIzNDYuNyIgaGVpZ2h0PSIxNDguNiIvPgoJPHJlY3QgeD0iMTA0MCIgeT0iOTQxIiBjbGFzcz0ic3QxIiB3aWR0aD0iMzQ2LjciIGhlaWdodD0iMTQ4LjYiLz4KCTxyZWN0IHg9IjEwNDAiIHk9IjExODguNiIgY2xhc3M9InN0MSIgd2lkdGg9IjM0Ni43IiBoZWlnaHQ9IjE0OC42Ii8+Cgk8cmVjdCB4PSIxMDQwIiB5PSIxNDM2LjIiIGNsYXNzPSJzdDEiIHdpZHRoPSIzNDYuNyIgaGVpZ2h0PSIxNDguNiIvPgoJPHBhdGggY2xhc3M9InN0MiIgZD0iTTEyMzguMSwwTDAsMjE2Ljl2MTY0Ni4yTDEyMzguMSwyMDgwVjB6Ii8+Cgk8cGF0aCBjbGFzcz0ic3QwIiBkPSJNODg0LjUsNTk0LjNsLTE3Mi44LDEwLjRMNjA2LjIsODUyLjNsLTYuOSwyMi4zbC01LDE2LjhsLTQuNSwxNi4zbC0zLjUsMTMuNGwwLDBjMC02LjYtMS41LTEyLjktNC41LTE4LjgKCQlsLTQuNS0xNy4zbC01LTE2LjNsLTUuNC0xNC45bC05MC42LTIzNS4yTDMwOS41LDYyOWwxNzcuOCwzODUuM2wtMTk2LjYsMzg1LjNsMTYyLjksOS45bDEwOS40LTI1Mi42bDUtMTcuM2w0LTE1LjRsMy41LTEyLjl2LTEwLjQKCQlsMCwwbDMuNSwxOC4zbDMuNSwxNS40bDMsMTEuOWwzLDguNGwxMTMuOSwyNjkuNGwxODkuMiwxMS45bC0yMTMtNDI0LjRMODg0LjUsNTk0LjMiLz4KPC9nPgo8L3N2Zz4K" alt="" loading="lazy"><span>Excel</span></li><li><img src="data:image/svg+xml;base64,PHN2ZyBmaWxsPSIjMEZBQUZGIiByb2xlPSJpbWciIHZpZXdCb3g9IjAgMCAyNCAyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48dGl0bGU+U0FQPC90aXRsZT48cGF0aCBkPSJNMCA2LjA2NHYxMS44NzJoMTIuMTNMMjQgNi4wNjR6bTMuMjY0IDIuMjA4aC4wMDVjLjg2My4wMDEgMS45MTUuMjQ1IDIuNjc2LjYzM2wtLjgyIDEuNDNjLS44MzUtLjQwNC0xLjI1NS0uNDQyLTEuNzMtLjQ2Ny0uNzA4LS4wMzgtMS4wNjQuMjE1LTEuMDY5LjQ4OC0uMDA3LjMzMi42NjkuNjMzIDEuMzA1LjgzOC45NjQuMzA2IDIuMTkuNzE1IDIuMzc3IDEuOUw3Ljc3IDguNDM3aDIuMDQ2bDIuMDY0IDUuNTc2LS4wMDctNS41NzVoMi4zN2MyLjI1NyAwIDMuMzE4Ljc2NCAzLjMxOCAyLjUxOSAwIDEuNTc1LTEuMDkgMi41MTQtMi45MzYgMi41MTRoLS43NjNsLS4wMSAyLjA5NC0zLjU4OC0uMDAzLS4yNS0uOTA4Yy0uMzcuMTIyLS43ODcuMTg5LTEuMjMuMTg5LS40NTYgMC0uODg1LS4wNzEtMS4yNjMtLjJsLS4zNTguOTE5LTIgLjAwNi4wOS0uNDYyYy0uMDI5LjAyNS0uMDU3LjA1LS4wODcuMDc0LS41MzUuNDMtMS4yMDguNjI5LTIuMDM3LjY0NGwtLjIxMy4wMDJhNS4wNzUgNS4wNzUgMCAwIDEtMi41ODEtLjY3NWwuNzMtMS40NDhjLjc5LjQ2NyAxLjI4Ni41NzIgMS45NTYuNTU4LjM0Ny0uMDA3LjU5OC0uMDcuNzYxLS4yMzlhLjU1Ny41NTcgMCAwIDAgLjE1Ni0uMzY5Yy4wMDctLjM3Ni0uNTMtLjU1My0xLjE4NS0uNzU2LS41MzEtLjE2NC0xLjEzNS0uMzg5LTEuNjA2LS43MzUtLjU1OS0uNDEtLjgyNS0uOTI0LS44MTItMS42NWExLjk5IDEuOTkgMCAwIDEgLjU2Ni0xLjM3N2MuNTE5LS41MzcgMS4zNTctLjg2MyAyLjM2My0uODYzem0xMC41OTcgMS42N3YxLjkwNGguNTIxYy42OTQgMCAxLjI0Ny0uMjMgMS4yNDgtLjk2NCAwLS43MDktLjU1NC0uOTQtMS4yNDgtLjk0em0tNS4wODcuNzY3bC0uNzQ4IDIuMzYyYy4yMjMuMDg1LjQ4MS4xMzMuNzU3LjEzMy4yNjggMCAuNTItLjA0Ny43NDItLjEyNmwtLjczNi0yLjM3eiIvPjwvc3ZnPg==" alt="" loading="lazy"><span>SAP Analytics Cloud</span></li><li><img src="data:image/png;base64,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" alt="" loading="lazy"><span>Celonis</span></li><li><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjggMTI4Ij48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9ImppcmEtb3JpZ2luYWwtYSIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiIHgxPSIyMi4wMzQiIHkxPSI5Ljc3MyIgeDI9IjE3LjExOCIgeTI9IjE0Ljg0MiIgZ3JhZGllbnRUcmFuc2Zvcm09InNjYWxlKDQpIj48c3RvcCBvZmZzZXQ9Ii4xNzYiIHN0b3AtY29sb3I9IiMwMDUyY2MiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiMyNjg0ZmYiLz48L2xpbmVhckdyYWRpZW50PjxsaW5lYXJHcmFkaWVudCBpZD0iamlyYS1vcmlnaW5hbC1iIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjE2LjY0MSIgeTE9IjE1LjU2NCIgeDI9IjEwLjk1NyIgeTI9IjIxLjA5NCIgZ3JhZGllbnRUcmFuc2Zvcm09InNjYWxlKDQpIj48c3RvcCBvZmZzZXQ9Ii4xNzYiIHN0b3AtY29sb3I9IiMwMDUyY2MiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiMyNjg0ZmYiLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cGF0aCBkPSJNMTA4LjAyMyAxNkg2MS44MDVjMCAxMS41MiA5LjMyNCAyMC44NDggMjAuODQ3IDIwLjg0OGg4LjV2OC4yMjZjMCAxMS41MiA5LjMyOCAyMC44NDggMjAuODQ4IDIwLjg0OFYxOS45NzdBMy45OCAzLjk4IDAgMDAxMDguMDIzIDE2em0wIDAiIGZpbGw9IiMyNjg0ZmYiLz48cGF0aCBkPSJNODUuMTIxIDM5LjA0SDM4LjkwMmMwIDExLjUxOSA5LjMyNSAyMC44NDcgMjAuODQ0IDIwLjg0N2g4LjUwNHY4LjIyNmMwIDExLjUyIDkuMzI4IDIwLjg0OCAyMC44NDggMjAuODQ4VjQzLjAxNmEzLjk4MyAzLjk4MyAwIDAwLTMuOTc3LTMuOTc3em0wIDAiIGZpbGw9InVybCgjamlyYS1vcmlnaW5hbC1hKSIvPjxwYXRoIGQ9Ik02Mi4yMTkgNjIuMDc4SDE2YzAgMTEuNTI0IDkuMzI0IDIwLjg0OCAyMC44NDggMjAuODQ4aDguNXY4LjIzYzAgMTEuNTIgOS4zMjggMjAuODQ0IDIwLjg0NyAyMC44NDRWNjYuMDU5YTMuOTg0IDMuOTg0IDAgMDAtMy45NzYtMy45OHptMCAwIiBmaWxsPSJ1cmwoI2ppcmEtb3JpZ2luYWwtYikiLz48L3N2Zz4K" alt="" loading="lazy"><span>Jira</span></li><li><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjggMTI4Ij48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9ImEiIHgxPSIyNi43OTEiIHgyPSIxMS43OTIiIHkxPSIyOC40NjciIHkyPSIxOS44NTUiIGdyYWRpZW50VHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTIxLjMzNCAtMTguNjY2KSBzY2FsZSg1LjMzMzMxKSIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiPjxzdG9wIG9mZnNldD0iMCIgc3RvcC1jb2xvcj0iIzAwNTJjYyIvPjxzdG9wIG9mZnNldD0iLjkxOCIgc3RvcC1jb2xvcj0iIzIzODBmYiIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iIzI2ODRmZiIvPjwvbGluZWFyR3JhZGllbnQ+PGxpbmVhckdyYWRpZW50IGlkPSJiIiB4MT0iNS4yMDkiIHgyPSIyMC4yMDgiIHkxPSIyLjUyMyIgeTI9IjExLjEzNiIgZ3JhZGllbnRUcmFuc2Zvcm09InRyYW5zbGF0ZSgtMjEuMzM0IC0xOC42NjYpIHNjYWxlKDUuMzMzMzEpIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjMDA1MmNjIi8+PHN0b3Agb2Zmc2V0PSIuOTE4IiBzdG9wLWNvbG9yPSIjMjM4MGZiIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjMjY4NGZmIi8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+PHBhdGggZmlsbD0idXJsKCNhKSIgZD0iTTQuNjU1IDk2LjMwM2EzMzIuMDYxIDMzMi4wNjEgMCAwIDAtNC4wNjIgNi41NzdjLTEuMTU2IDEuOTMzLS41NzggNC40NDggMS4zNTQgNS42MWwyNi40ODQgMTYuMjVjMS45MzQgMS4xNiA0LjQ0My41NzcgNS42MDQtMS4zNTVhMTg1Ljc5OCAxODUuNzk4IDAgMCAxIDMuODY2LTYuNTc5YzEwLjQ0Mi0xNy4yMTMgMjEuMDcxLTE1LjI4IDQwLjAxNC02LjE4NmwyNi4yOTMgMTIuMzc0YzIuMTI0Ljk3IDQuNDQ3IDAgNS40MS0xLjkzM2wxMi41NjktMjguNDNjLjk2My0xLjkzOCAwLTQuNDQ4LTEuOTM5LTUuNDE4LTUuNjA0LTIuNTE2LTE2LjYxOC03Ljc0LTI2LjI4NS0xMi41NzMtMzUuNzYtMTcuMjE5LTY2LjExNC0xNi4wNTctODkuMzA2IDIxLjY2M1ptMCAwIi8+PHBhdGggZmlsbD0idXJsKCNiKSIgZD0iTTEyMy4zNDMgMzEuNjk3YTMzMi4wNjEgMzMyLjA2MSAwIDAgMCA0LjA2My02LjU3N2MxLjE2LTEuOTMzLjU3Ny00LjQ0OC0xLjM1NS01LjYxTDk5LjU2NyAzLjI2Yy0xLjkzMy0xLjE2LTQuNDQzLS41NzctNS42MDQgMS4zNTVhMTc4LjA2NiAxNzguMDY2IDAgMCAxLTMuODY1IDYuNTc5Yy0xMC40NDMgMTcuMjEzLTIxLjA3MiAxNS4yOC00MC4wMTUgNi4xODZMMjMuNzkgNS4wMDZjLTIuMTI0LS45Ny00LjQ0MSAwLTUuNDEgMS45MzNMNS44MTYgMzUuMzY5Yy0uOTY4IDEuOTM4IDAgNC40NTQgMS45MzMgNS40MTggNS42MDQgMi41MTYgMTYuNjI0IDcuNzQgMjYuMjg1IDEyLjU3MyAzNS43NjcgMTcuMDI3IDY2LjExNSAxNi4wNTYgODkuMzA3LTIxLjY2M3ptMCAwIi8+PC9zdmc+Cg==" alt="" loading="lazy"><span>Confluence</span></li><li><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjggMTI4Ij48cGF0aCBmaWxsPSIjRjM0RjI5IiBkPSJNMTI0LjczNyA1OC4zNzhMNjkuNjIxIDMuMjY0Yy0zLjE3Mi0zLjE3NC04LjMyLTMuMTc0LTExLjQ5NyAwTDQ2LjY4IDE0LjcxbDE0LjUxOCAxNC41MThjMy4zNzUtMS4xMzkgNy4yNDMtLjM3NSA5LjkzMiAyLjMxNCAyLjcwMyAyLjcwNiAzLjQ2MSA2LjYwNyAyLjI5NCA5Ljk5M2wxMy45OTIgMTMuOTkzYzMuMzg1LTEuMTY3IDcuMjkyLS40MTMgOS45OTQgMi4yOTUgMy43OCAzLjc3NyAzLjc4IDkuOSAwIDEzLjY3OWE5LjY3MyA5LjY3MyAwIDAxLTEzLjY4MyAwIDkuNjc3IDkuNjc3IDAgMDEtMi4xMDUtMTAuNTIxTDY4LjU3NCA0Ny45MzNsLS4wMDIgMzQuMzQxYTkuNzA4IDkuNzA4IDAgMDEyLjU1OSAxLjgyOGMzLjc3OCAzLjc3NyAzLjc3OCA5Ljg5OCAwIDEzLjY4My0zLjc3OSAzLjc3Ny05LjkwNCAzLjc3Ny0xMy42NzkgMC0zLjc3OC0zLjc4NC0zLjc3OC05LjkwNSAwLTEzLjY4M2E5LjY1IDkuNjUgMCAwMTMuMTY3LTIuMTFWNDcuMzMzYTkuNTgxIDkuNTgxIDAgMDEtMy4xNjctMi4xMTFjLTIuODYyLTIuODYtMy41NTEtNy4wNi0yLjA4My0xMC41NzZMNDEuMDU2IDIwLjMzMyAzLjI2NCA1OC4xMjNhOC4xMzMgOC4xMzMgMCAwMDAgMTEuNWw1NS4xMTcgNTUuMTE0YzMuMTc0IDMuMTc0IDguMzIgMy4xNzQgMTEuNDk5IDBsNTQuODU4LTU0Ljg1OGE4LjEzNSA4LjEzNSAwIDAwLS4wMDEtMTEuNTAxeiIvPjwvc3ZnPg==" alt="" loading="lazy"><span>Git &amp; GitHub</span></li></ul></div>
   </div>
 </section>
 
 <section class="section" id="education">
-  <div class="section-num">05 <span class="label">Education</span></div>
+  <div class="section-num reveal">05 <span class="label">Education</span></div>
   <h2>Education</h2>
   <div>
-    <div class="edu-item reveal">
-      <div class="edu-dates">2023 to 2025</div>
-      <div><div class="edu-degree">Master's in International Business with Regional Focus (MBA)</div><div class="edu-school">Technische Hochschule Würzburg-Schweinfurt, Germany</div><div class="edu-note">Thesis grade 1.0</div></div>
-    </div>
-    <div class="edu-item reveal">
-      <div class="edu-dates">2018 to 2022</div>
-      <div><div class="edu-degree">Bachelor of Engineering, Computer Science</div><div class="edu-school">K. S. Institute of Technology, Bengaluru, India</div></div>
-    </div>
+    <div class="edu-cards"><div class="edu-card reveal" style="--e:#5B8DEF"><span class="edu-ic"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxZW0iIGhlaWdodD0iMWVtIiB2aWV3Qm94PSIwIDAgMjQgMjQiPjxnIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzVCOERFRiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9IjIiPjxwYXRoIGQ9Ik0yMiA5TDEyIDVMMiA5bDEwIDR6djYiLz48cGF0aCBkPSJNNiAxMC42VjE2YTYgMyAwIDAgMCAxMiAwdi01LjQiLz48L2c+PC9zdmc+" alt=""></span><div class="edu-date">Oct 2023 – Sep 2025</div><div class="edu-name">Master in International Business</div><div class="edu-uni">THWS Würzburg-Schweinfurt</div></div><div class="edu-card reveal" style="--e:#F2B84B"><span class="edu-ic"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxZW0iIGhlaWdodD0iMWVtIiB2aWV3Qm94PSIwIDAgMjQgMjQiPjxwYXRoIGZpbGw9Im5vbmUiIHN0cm9rZT0iI0YyQjg0QiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9IjIiIGQ9Ik0zIDE5aDE4TTUgN2ExIDEgMCAwIDEgMS0xaDEyYTEgMSAwIDAgMSAxIDF2OGExIDEgMCAwIDEtMSAxSDZhMSAxIDAgMCAxLTEtMXoiLz48L3N2Zz4=" alt=""></span><div class="edu-date">Aug 2018 – Jul 2022</div><div class="edu-name">B.E. Computer Science</div><div class="edu-uni">K. S. Institute of Technology, Bengaluru</div></div><div class="edu-card reveal" style="--e:#2EC4B6"><span class="edu-ic"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxZW0iIGhlaWdodD0iMWVtIiB2aWV3Qm94PSIwIDAgMjQgMjQiPjxnIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzJFQzRCNiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9IjIiPjxwYXRoIGQ9Ik05IDYuMzcxQzkgMTAuNzg5IDYuNzYxIDEzIDQgMTNtMC02LjYyOWg3Ii8+PHBhdGggZD0iTTUgOWMwIDIuMTQ0IDIuMjUyIDMuOTA4IDYgNG0xIDdsNC05bDQgOW0tLjktMmgtNi4yTTYuNjk0IDNsLjc5My41ODIiLz48L2c+PC9zdmc+" alt=""></span><div class="edu-date">Sep 2025 – Present</div><div class="edu-name">German Language Course</div><div class="edu-uni">Neonecs Academy</div></div></div>
   </div>
 </section>
 
 <section class="section" id="languages">
-  <div class="section-num">06 <span class="label">Languages</span></div>
+  <div class="section-num reveal">06 <span class="label">Languages</span></div>
   <h2>Languages</h2>
   <div class="lang-row">
     <div class="lang-card reveal"><div class="lang-name">English</div><div class="lang-level">C1</div></div>
-    <div class="lang-card reveal"><div class="lang-name">German</div><div class="lang-level">B1, B2 ongoing</div></div>
+    <div class="lang-card reveal"><div class="lang-name">German</div><div class="lang-level">B1, C1 by 2027</div></div>
     <div class="lang-card reveal"><div class="lang-name">Kannada</div><div class="lang-level">Native</div></div>
     <div class="lang-card reveal"><div class="lang-name">Telugu</div><div class="lang-level">Fluent</div></div>
     <div class="lang-card reveal"><div class="lang-name">Hindi</div><div class="lang-level">Fluent</div></div>
@@ -286,16 +446,22 @@ footer span{font-size:0.76rem;color:#333;}
 </section>
 
 <section class="section" id="articles">
-  <div class="section-num">07 <span class="label">Writing</span></div>
+  <div class="section-num reveal">07 <span class="label">Writing</span></div>
   <h2>Articles on Medium</h2>
   <div class="article-grid">
-    <a class="article-card reveal" href="https://medium.com/@ramyareddy9488" target="_blank" rel="noopener noreferrer">
+    <a class="article-card reveal art-wide" href="https://medium.com/@ramyareddy9488/listening-to-zalando-users-how-app-reviews-can-shape-product-priorities-cfcc3c336904" target="_blank" rel="noopener noreferrer">
+      <div class="art-date">Oct 26, 2026</div>
+      <div class="art-title">Listening to Zalando Users: How App Reviews Can Shape Product Priorities</div>
+      <div class="art-excerpt">From raw Play Store feedback to a clear, data-backed checkout concept. What thousands of app reviews can tell a product team if someone actually reads them all.</div>
+      <div class="art-read">Read on Medium ↗</div>
+    </a>
+    <a class="article-card reveal" href="https://medium.com/@ramyareddy9488/decoding-brand-worth-royalty-relief-premium-price-explained-e7344aee7392" target="_blank" rel="noopener noreferrer">
       <div class="art-date">May 17, 2025 · 2 min read</div>
       <div class="art-title">Decoding Brand Worth: Royalty Relief &amp; Premium Price Explained</div>
       <div class="art-excerpt">How much is a brand like Apple or Nike actually worth beyond its physical products? A breakdown of the key methods used to value what a brand truly commands in the market.</div>
       <div class="art-read">Read on Medium ↗</div>
     </a>
-    <a class="article-card reveal" href="https://medium.com/@ramyareddy9488" target="_blank" rel="noopener noreferrer">
+    <a class="article-card reveal" href="https://medium.com/@ramyareddy9488/swiggy-vs-lieferando-unpacking-their-marketing-strategies-8eaddb8cca6c" target="_blank" rel="noopener noreferrer">
       <div class="art-date">Apr 28, 2025 · 15 min read</div>
       <div class="art-title">Swiggy vs Lieferando: Unpacking Their Marketing Strategies</div>
       <div class="art-excerpt">Two continents, two food delivery giants, one question: how do you win in a crowded market? A deep dive into the marketing strategies that separate the winners from the rest.</div>
@@ -304,19 +470,7 @@ footer span{font-size:0.76rem;color:#333;}
   </div>
 </section>
 
-<section class="section" id="certifications">
-  <div class="section-num">08 <span class="label">Certifications</span></div>
-  <h2>Certifications</h2>
-  <div class="cert-grid">
-    <div class="cert-item reveal"><span class="cert-dot"></span>GitHub &amp; IncubateIND, Certificate of Excellence, Code Innovation Series Hackathon</div>
-    <div class="cert-item reveal"><span class="cert-dot"></span>Coursera, Agile Project Management by Google</div>
-    <div class="cert-item reveal"><span class="cert-dot"></span>Udemy, Microsoft Power BI Desktop for Business Intelligence</div>
-    <div class="cert-item reveal"><span class="cert-dot"></span>Coursera, Google Digital Marketing &amp; E-Commerce</div>
-    <div class="cert-item reveal"><span class="cert-dot"></span>NSW Government, Marketing &amp; Communication Job Simulation</div>
-    <div class="cert-item reveal"><span class="cert-dot"></span>Forage, Product Management Job Simulation</div>
-    <div class="cert-item reveal"><span class="cert-dot"></span>Udemy, International Logistics &amp; Transportation in Supply Chain</div>
-  </div>
-</section>
+
 
 <section id="contact">
   <h2>Let's connect</h2>
@@ -356,6 +510,11 @@ var obs = new IntersectionObserver(function(entries) {
   entries.forEach(function(e) { if(e.isIntersecting) e.target.classList.add('visible'); });
 }, { threshold: 0.08 });
 document.querySelectorAll('.reveal').forEach(function(el) { obs.observe(el); });
+
+// colour layer: reading progress bar and staggered reveals
+var bar=document.getElementById('progress');
+window.addEventListener('scroll',function(){var h=document.documentElement;bar.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'%';},{passive:true});
+document.querySelectorAll('.proj-grid,.lang-row,.cert-grid,.article-grid').forEach(function(g){Array.prototype.forEach.call(g.children,function(c,i){c.style.transitionDelay=(i*70)+'ms';c.addEventListener('transitionend',function(){c.style.transitionDelay='';},{once:true});});});
 </script>
 </body>
 </html>
